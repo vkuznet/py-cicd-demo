@@ -283,8 +283,20 @@ echo $GITHUB_PAT | docker login ghcr.io -u vkuznet --password-stdin
 # pull out image
 docker pull ghcr.io/vkuznet/py-cicd-demo:latest
 
+# Authenticate apptainer with GHCR repo
+apptainer remote login --username YOUR_GITHUB_USERNAME oras://ghcr.io
+
 # Apptainer .sif pushed as an OCI artifact to GHCR
 apptainer pull oras://ghcr.io/vkuznet/py-cicd-demo-sif:latest
+
+# check sif image on local disk
+ls *.sif
+py-cicd-demo-sif_latest.sif
+# or check apptainer cache
+apptainer cache list
+
+# run apptainer image:
+apptainer run py-cicd-demo-sif_latest.sif
 ```
 
 ## License
