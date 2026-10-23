@@ -79,6 +79,12 @@ Build and run it yourself:
 ```bash
 docker build -t py-cicd-demo:local .
 docker run --rm py-cicd-demo:local CHESS_USER
+
+# if we want to "login" into container we can use the following command:
+docker run -it --entrypoint /bin/bash py-cicd-demo:local
+appuser@9401722c8b91:/app$ pwd
+appuser@9401722c8b91:/app$ ls
+appuser@9401722c8b91:/app$ python ./hello.py
 ```
 
 If we do not have native apptainer we may save docker image to a archive
@@ -112,6 +118,11 @@ Docker base so the two images stay consistent.
 sudo apt-get install -y apptainer   # or see apptainer.org for your OS
 sudo apptainer build py-cicd-demo.sif apptainer.def
 apptainer run py-cicd-demo.sif CHESS_USER
+
+# we can also "login" into apptainer shell and execute our code:
+apptainer shell /tmp/local-py-cicd-demo.sif
+Apptainer> ls
+Apptainer> python ./hello.py
 ```
 
 ### Usefull commands
