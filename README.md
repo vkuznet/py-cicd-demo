@@ -310,6 +310,14 @@ apptainer cache list
 apptainer run py-cicd-demo-sif_latest.sif
 ```
 
+### converting Dockerfile to apptainer.def
+You may use the following recipe to convert given Dockerfile to apptainer.def
+one:
+
+```
+pip install spython
+spython recipe Dockerfile apptainer.def
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
