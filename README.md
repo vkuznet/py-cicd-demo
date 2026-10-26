@@ -317,6 +317,45 @@ one:
 ```
 pip install spython
 spython recipe Dockerfile apptainer.def
+```
+
+---
+
+### Image vulnerabilities
+To check image for vulnerabilities we may use `trivy` tool. It
+can be installed as simple as:
+
+```
+# install trivy in $HOME/bin area
+curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b $HOME/bin v0.76.1
+
+# scan our image
+trivy image py-cicd-demo:local
+...
+Report Summary                                                                                     13:45 [3597/3878]
+
+┌────────────────────────────────────────────────────────────────────────────┬────────────┬─────────────────┬───────
+──┐
+│                                   Target                                   │    Type    │ Vulnerabilities │ Secret
+s │
+├────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼───────
+──┤
+│ py-cicd-demo:local (debian 12.15)                                          │   debian   │       458       │    -
+  │
+├────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼───────
+──┤
+│ Python                                                                     │ python-pkg │        7        │    -
+  │
+├────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼───────
+──┤
+│ opt/venv/lib/python3.11/site-packages/setuptools-66.1.1.dist-info/METADATA │ python-pkg │        4        │    -
+  │
+└────────────────────────────────────────────────────────────────────────────┴────────────┴─────────────────┴───────
+──┘
+...
+Total: 11 (UNKNOWN: 0, LOW: 2, MEDIUM: 3, HIGH: 6, CRITICAL: 0)
+...
+```
 
 ## License
 
