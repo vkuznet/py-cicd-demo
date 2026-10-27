@@ -344,8 +344,15 @@ Report Summary                                                                  
 │ opt/venv/lib/python3.11/site-packages/setuptools-66.1.1.dist-info/METADATA │ python-pkg │        4        │    -  │
 └────────────────────────────────────────────────────────────────────────────┴────────────┴─────────────────┴─────────┘
 ...
-Total: 11 (UNKNOWN: 0, LOW: 2, MEDIUM: 3, HIGH: 6, CRITICAL: 0)
-...
+```
+
+If you want to inspect sif images you'll need to do it differently:
+
+```
+# build container directory
+apptainer build --sandbox /tmp/local-py-cicd-demo-dir/ /tmp/local-py-cicd-demo.sif
+# inspect vulnerabilities of sandbox directory
+trivy rootfs /tmp/local-py-cicd-demo-dir/
 ```
 
 ## License
