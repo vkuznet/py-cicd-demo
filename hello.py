@@ -42,6 +42,7 @@ def main(argv: list[str] | None = None) -> int:
     name = argv[0] if argv else "World"
 
     print(greeting(name))
+    print("Suchi example")
     print(f"Python version : {platform.python_version()}")
     print(f"numpy version  : {np.__version__}")
 
