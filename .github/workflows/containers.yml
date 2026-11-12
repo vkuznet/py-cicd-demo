@@ -191,6 +191,16 @@ jobs:
         with:
           apptainer-version: latest
 
+      - name: Verify Apptainer installation
+        run: |
+          command -v apptainer
+          apptainer --version
+
+      - name: Build .sif from apptainer.def
+        run: |
+          APPTAINER_BIN="$(command -v apptainer)"
+          sudo "$APPTAINER_BIN" build py-cicd-demo.sif apptainer.def
+
       - name: Build .sif from apptainer.def
         run: |
           sudo apptainer build py-cicd-demo.sif apptainer.def
