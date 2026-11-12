@@ -15,7 +15,10 @@ from __future__ import annotations
 import platform
 import sys
 
-import numpy as np
+try:
+    import numpy as np
+except ImportError:
+    np = None
 
 
 def greeting(name: str = "World") -> str:
@@ -28,13 +31,16 @@ def compute_demo_stats(size: int = 10) -> dict:
     Do a trivial bit of numpy work so the dependency is exercised
     at runtime, not just installed and ignored.
     """
-    arr = np.arange(1, size + 1, dtype=float)
-    return {
-        "size": size,
-        "sum": float(np.sum(arr)),
-        "mean": float(np.mean(arr)),
-        "std": float(np.std(arr)),
-    }
+    if np:
+        arr = np.arange(1, size + 1, dtype=float)
+        return {
+            "size": size,
+            "sum": float(np.sum(arr)),
+            "mean": float(np.mean(arr)),
+            "std": float(np.std(arr)),
+        }
+    else:
+        return {"message": "no numpy package installed"}
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -44,11 +50,15 @@ def main(argv: list[str] | None = None) -> int:
     print(greeting(name))
     print("Suchi example")
     print(f"Python version : {platform.python_version()}")
-    print(f"numpy version  : {np.__version__}")
+    if np:
+        print(f"numpy version  : {np.__version__}")
 
     stats = compute_demo_stats()
-    print(f"Demo numpy stats over 1..{stats['size']}: "
-          f"sum={stats['sum']}, mean={stats['mean']}, std={stats['std']:.4f}")
+    if np:
+        print(f"Demo numpy stats over 1..{stats['size']}: "
+              f"sum={stats['sum']}, mean={stats['mean']}, std={stats['std']:.4f}")
+    else:
+        print(f"Demo stats {stats}")
 
     return 0
 
