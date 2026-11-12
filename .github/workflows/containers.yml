@@ -201,10 +201,6 @@ jobs:
           APPTAINER_BIN="$(command -v apptainer)"
           sudo "$APPTAINER_BIN" build py-cicd-demo.sif apptainer.def
 
-      - name: Build .sif from apptainer.def
-        run: |
-          sudo apptainer build py-cicd-demo.sif apptainer.def
-
       - name: Smoke-test the .sif image
         run: |
           apptainer run py-cicd-demo.sif CI-Apptainer
